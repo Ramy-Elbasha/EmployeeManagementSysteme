@@ -1,6 +1,7 @@
 package com.Ecommerce.Ecommerce_Management_System.controllers;
 
-import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeDTO;
+import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeCreateDTO;
+import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeUpdateDTO;
 import com.Ecommerce.Ecommerce_Management_System.abstracts.EmployeeSerivce;
 import com.Ecommerce.Ecommerce_Management_System.entities.Employee;
 import com.Ecommerce.Ecommerce_Management_System.shared.GlobalResponse;
@@ -8,10 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +35,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<GlobalResponse<Employee>> createEmployee(@RequestBody @Valid EmployeeDTO emp) {
+    public ResponseEntity<GlobalResponse<Employee>> createOne(@RequestBody @Valid EmployeeCreateDTO emp) {
         Employee employee = employeeService.create(emp);
         return new ResponseEntity<>(new GlobalResponse<>(employee), HttpStatus.CREATED);
     }
@@ -61,7 +59,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GlobalResponse<?>> updateOne(@PathVariable UUID id, @RequestBody Employee reqEmp) {
+    public ResponseEntity<GlobalResponse<?>> updateOne(@PathVariable UUID id, @RequestBody EmployeeUpdateDTO reqEmp) {
         Employee employee = employeeService.updateOne(id, reqEmp);
         return new ResponseEntity<>(new GlobalResponse(employee), HttpStatus.OK);
     }

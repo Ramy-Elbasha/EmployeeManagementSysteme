@@ -1,6 +1,7 @@
 package com.Ecommerce.Ecommerce_Management_System.abstracts;
 
-import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeDTO;
+import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeCreateDTO;
+import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeUpdateDTO;
 import com.Ecommerce.Ecommerce_Management_System.entities.Employee;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface EmployeeSerivce {
 
     void deleteOne(UUID employeeId);
 
-    Employee updateOne(UUID employeeId, Employee employee);
+    Employee updateOne(UUID employeeId, EmployeeUpdateDTO employee);
 
-    Employee create(EmployeeDTO emp);
+    Employee create(EmployeeCreateDTO emp);
 }
