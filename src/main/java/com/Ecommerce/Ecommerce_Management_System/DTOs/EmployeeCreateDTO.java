@@ -2,6 +2,8 @@ package com.Ecommerce.Ecommerce_Management_System.DTOs;
 
 import jakarta.validation.constraints.*;
 
+import java.util.UUID;
+
 public record EmployeeCreateDTO(
         @NotNull(message = "first name can't be null")
         String firstName,
@@ -13,6 +15,8 @@ public record EmployeeCreateDTO(
         String email,
         @Size(min = 5, max = 12)
         String position,
-        String phoneNumber
+        String phoneNumber,
+        @NotNull(message = "Department can't be null")
+        UUID department
 ) {
 }

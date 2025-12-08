@@ -44,9 +44,13 @@ public class Employee {
     @Column(name = "POSITION", length = 50)
     private String position;
 
-    @Column(name = "DEPARTMENT_ID")
-    private UUID departmentId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
+    private Department departmentId;
 
+//    public UUID getDepartmentId() {
+//        return departmentId.getId();
+//    }
 
     public Employee(EmployeeCreateDTO emp) {
 
@@ -56,6 +60,5 @@ public class Employee {
         this.email = emp.email();
         this.phoneNumber = emp.phoneNumber();
         this.age = emp.age();
-        this.departmentId = UUID.randomUUID();
     }
 }

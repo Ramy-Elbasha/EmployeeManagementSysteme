@@ -3,8 +3,11 @@ package com.Ecommerce.Ecommerce_Management_System.services;
 import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeCreateDTO;
 import com.Ecommerce.Ecommerce_Management_System.DTOs.EmployeeUpdateDTO;
 import com.Ecommerce.Ecommerce_Management_System.abstracts.EmployeeSerivce;
+import com.Ecommerce.Ecommerce_Management_System.entities.Department;
 import com.Ecommerce.Ecommerce_Management_System.entities.Employee;
+import com.Ecommerce.Ecommerce_Management_System.repositories.DepartmentRepo;
 import com.Ecommerce.Ecommerce_Management_System.repositories.EmployeeRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,6 +18,8 @@ import java.util.UUID;
 @Service
 public class EmployeeServiceImp implements EmployeeSerivce {
     private final EmployeeRepo employeeRepo;
+    @Autowired
+    private DepartmentRepo departmentRepo;
 //    List<Employee> emps = new ArrayList<Employee>(
 //            List.of(
 //                    new Employee(UUID.randomUUID(), "Ramy", "Elbasha", "ramy.elbasha@example.com", (short) 15, "0100000001", LocalDate.of(2025, 8, 12), "Junior", UUID.randomUUID()),
@@ -75,7 +80,9 @@ public class EmployeeServiceImp implements EmployeeSerivce {
     @Override
     public Employee create(EmployeeCreateDTO emp) {
         Employee employee = new Employee(emp);
+        Department dep = departmentRepo.findById(emp.department()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found"));
 //        emps.add(employee);
+        employee.setDepartmentId(dep);
         employeeRepo.save(employee);
         return employee;
     }
